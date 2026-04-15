@@ -11,8 +11,8 @@
     {
       "name": "dotnet",
       "source": {
-        "source": "github",
-        "repo": "Firuz2006/core-for-csharp-project"
+        "source": "url",
+        "url": "https://github.com/Firuz2006/core-for-csharp-project.git"
       },
       "description": ".NET project assistant",
       "version": "0.1.0",
