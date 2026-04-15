@@ -1,4 +1,6 @@
 {
-  "SessionStart": [],
-  "PreToolUse": []
+  "hooks": {
+    "SessionStart": [],
+    "PreToolUse": []
+  }
 }
