@@ -1,5 +1,12 @@
 {
   "name": "dotnet",
   "version": "0.1.0",
-  "description": ".NET project assistant"
+  "description": ".NET project assistant",
+  "author": {
+    "name": "Firuz",
+    "email": "firuzisoboev@gmail.com",
+    "url": "https://github.com/Firuz2006"
+  },
+  "homepage": "https://github.com/Firuz2006/core-for-csharp-project",
+  "repository": "https://github.com/Firuz2006/core-for-csharp-project"
 }
