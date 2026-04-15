@@ -12,8 +12,8 @@ Source: https://www.milanjovanovic.tech/blog/the-right-way-to-use-httpclient-in-
 
 ```csharp
 // Port exhaustion + DNS caching issues
-using var client = new HttpClient();
-var response = await client.GetAsync("https://api.example.com");
+using HttpClient client = new HttpClient();
+HttpResponseMessage response = await client.GetAsync("https://api.example.com");
 ```
 
 `new HttpClient()` in `using` = port exhaustion under load. Never.

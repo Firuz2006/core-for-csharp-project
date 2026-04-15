@@ -66,8 +66,9 @@ app.UseExceptionHandler(errorApp =>
 {
     errorApp.Run(async context =>
     {
-        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+        IExceptionHandlerFeature? exceptionFeature = context.Features.Get<IExceptionHandlerFeature>();
+        Exception? exception = exceptionFeature?.Error;
+        ILogger<Program> logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
         logger.LogError(exception, "Unhandled exception on {Method} {Path}", context.Request.Method, context.Request.Path);
 
         context.Response.StatusCode = 500;
