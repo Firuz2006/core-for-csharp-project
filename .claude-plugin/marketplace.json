@@ -1,0 +1,27 @@
+{
+  "name": "firuz-dotnet",
+  "owner": {
+    "name": "Firuz",
+    "email": "firuzisoboev@gmail.com"
+  },
+  "metadata": {
+    "description": ".NET project conventions and best practices for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "dotnet",
+      "source": {
+        "source": "github",
+        "repo": "Firuz2006/core-for-csharp-project"
+      },
+      "description": ".NET project assistant",
+      "version": "0.1.0",
+      "author": {
+        "name": "Firuz",
+        "email": "firuzisoboev@gmail.com"
+      },
+      "license": "MIT",
+      "keywords": ["dotnet", "csharp", "aspnetcore"]
+    }
+  ]
+}
