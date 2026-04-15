@@ -89,6 +89,64 @@ builder.Services.AddHttpClient<GitHubClient>(client =>
 
 No manual Polly config needed.
 
+## Project convention — custom factory interface for named clients
+
+Every new external API URL must be registered as a named HttpClient. To avoid magic strings when resolving clients, wrap `IHttpClientFactory` in a custom interface that returns `HttpClient` by requested base URL.
+
+```csharp
+public interface IApiHttpClientFactory
+{
+    HttpClient CreateClient(Uri baseUrl);
+}
+```
+
+```csharp
+public class ApiHttpClientFactory(IHttpClientFactory httpClientFactory) : IApiHttpClientFactory
+{
+    private static readonly Dictionary<Uri, string> ClientMap = new();
+
+    public static void Register(Uri baseUrl, string clientName)
+    {
+        ClientMap[baseUrl] = clientName;
+    }
+
+    public HttpClient CreateClient(Uri baseUrl)
+    {
+        if (!ClientMap.TryGetValue(baseUrl, out string? clientName))
+            throw new ArgumentException($"No named HttpClient registered for {baseUrl}");
+
+        return httpClientFactory.CreateClient(clientName);
+    }
+}
+```
+
+Registration:
+
+```csharp
+// Program.cs
+builder.Services.AddHttpClient("GitHub", client =>
+{
+    client.BaseAddress = new Uri("https://api.github.com");
+});
+
+ApiHttpClientFactory.Register(new Uri("https://api.github.com"), "GitHub");
+
+builder.Services.AddSingleton<IApiHttpClientFactory, ApiHttpClientFactory>();
+```
+
+Usage:
+
+```csharp
+public class OrderService(IApiHttpClientFactory apiClientFactory)
+{
+    public async Task GetOrderAsync(CancellationToken cancellationToken)
+    {
+        HttpClient client = apiClientFactory.CreateClient(new Uri("https://api.github.com"));
+        // ...
+    }
+}
+```
+
 ## CancellationToken — mandatory
 
 Not in source article, but required. Always propagate `CancellationToken` through all async HTTP methods:

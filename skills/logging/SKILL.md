@@ -76,11 +76,9 @@ app.UseExceptionHandler(errorApp =>
 });
 ```
 
-## Prod requirements
+## Serilog — обязательно в каждом проекте
 
-### Serilog
-
-For any project with a log aggregator (Seq, OpenSearch, Datadog) — Serilog is practically required. Built-in JSON console formatter works but is less capable.
+Serilog — единственный логгер. Built-in не используем. Каждый новый проект начинается с Serilog.
 
 ### OpenTelemetry
 
